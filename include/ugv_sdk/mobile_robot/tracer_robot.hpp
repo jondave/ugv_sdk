@@ -19,7 +19,7 @@ namespace westonrobot {
 class TracerRobot : public RobotCommonInterface, public TracerInterface {
  public:
   TracerRobot(ProtocolVersion protocol = ProtocolVersion::AGX_V2);
-  virtual ~TracerRobot();
+  ~TracerRobot();
 
   bool Connect(std::string can_name) override;
 

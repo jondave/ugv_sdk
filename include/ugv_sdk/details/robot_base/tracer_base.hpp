@@ -25,32 +25,32 @@ template <typename ParserType>
 class TracerBase : public AgilexBase<ParserType>,
                      public TracerInterface {
  public:
-  TracerBase() : AgilexBase<ProtocolV2Parser>(){};
+  TracerBase() : AgilexBase<ParserType>(){};
   ~TracerBase() = default;
 
   // set up connection
   bool Connect(std::string can_name) override {
-    return AgilexBase<ProtocolV2Parser>::Connect(can_name);
+    return AgilexBase<ParserType>::Connect(can_name);
   }
 
   // robot control
   void SetMotionCommand(double linear_vel, double angular_vel) override {
-    AgilexBase<ProtocolV2Parser>::SendMotionCommand(linear_vel, angular_vel,
+    AgilexBase<ParserType>::SendMotionCommand(linear_vel, angular_vel,
                                                     0.0, 0.0);
   }
 
   void SetLightCommand(AgxLightMode f_mode, uint8_t f_value) override {
-    AgilexBase<ProtocolV2Parser>::SendLightCommand(f_mode, f_value, CONST_OFF,
+    AgilexBase<ParserType>::SendLightCommand(f_mode, f_value, CONST_OFF,
                                                    0);
   }
 
   void DisableLightControl() override {
-    AgilexBase<ProtocolV2Parser>::DisableLightControl();
+    AgilexBase<ParserType>::DisableLightControl();
   }
 
   // get robot state
   TracerCoreState GetRobotState() override {
-    auto state = AgilexBase<ProtocolV2Parser>::GetRobotCoreStateMsgGroup();
+    auto state = AgilexBase<ParserType>::GetRobotCoreStateMsgGroup();
 
     TracerCoreState tracer_state;
     tracer_state.time_stamp = state.time_stamp;
@@ -62,7 +62,7 @@ class TracerBase : public AgilexBase<ParserType>,
   }
 
   TracerActuatorState GetActuatorState() override {
-    auto actuator = AgilexBase<ProtocolV2Parser>::GetActuatorStateMsgGroup();
+    auto actuator = AgilexBase<ParserType>::GetActuatorStateMsgGroup();
 
     TracerActuatorState tracer_actuator;
     tracer_actuator.time_stamp = actuator.time_stamp;

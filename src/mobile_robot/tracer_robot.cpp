@@ -44,9 +44,15 @@ void TracerRobot::SetMotionCommand(double linear_vel, double angular_vel) {
   Tracer->SetMotionCommand(linear_vel, angular_vel);
 }
 void TracerRobot::SetLightCommand(AgxLightMode f_mode, uint8_t f_value) {
-  auto scout = dynamic_cast<TracerInterface*>(robot_);
-  scout->SetLightCommand(f_mode, f_value);
+  auto Tracer = dynamic_cast<TracerInterface*>(robot_);
+  Tracer->SetLightCommand(f_mode, f_value);
 }
+
+void TracerRobot::DisableLightControl() {
+  auto Tracer = dynamic_cast<TracerInterface*>(robot_);
+  Tracer->DisableLightControl();
+}
+
 
 TracerCoreState TracerRobot::GetRobotState() {
   auto Tracer = dynamic_cast<TracerInterface*>(robot_);
